@@ -2,6 +2,8 @@ import argparse
 import random
 import urllib.request
 
+from cowsay import *
+
 def bullscows(guess: str, secret: str) -> (int, int):
     """
     возвращает количество «быков» и «коров» из guess в secret
@@ -59,11 +61,11 @@ def ask(prompt: str, valid: list[str] = None) -> str:
     """
     if valid:
         while True:
-            tmp = input(prompt)
+            tmp = input(cowsay(prompt, cow = get_random_cow()))
             if tmp in valid:
                 break
     else:
-        tmp = input(prompt)
+        tmp = input(cowsay(prompt, cow = get_random_cow()))
     
     return tmp
 
@@ -71,7 +73,7 @@ def inform(format_string: str, bulls: int, cows: int) -> None:
     """
     inform("Быки: {}, Коровы: {}", b, c)
     """
-    print(format_string.format(bulls, cows))
+    print(cowsay(format_string.format(bulls, cows), cow = get_random_cow()))
 
 def download_words(url):
     with urllib.request.urlopen(url) as response:
